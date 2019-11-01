@@ -187,17 +187,41 @@
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var counter = 0;
       var min = minorDiagonalColumnIndexAtFirstRow;
-      for (var i = 0; i < this.rows().length; i++) {
-        // put break here if min < 4 and row === 0 and col === min then break.
+      // var orgRow;
+      // var col;
+      var n = this.get('n') - 1;
+      if (min > n) {
+        orgRow = n;
+      } else {
+        orgRow = min;
+      }
+
+      // if (rows === col) {
+
+      // } else {
+      //   baseCol = col;
+      //   while (row !== col) {
+      //     for () {
+
+      //     }
+      //   }
+      // }
+
+      for (var i = 0; i < orgRow + 1; i++) {
+        // if row === col
+        // break;
+        // put break here if min < n and row === 0 and col === min then break.
+        // put break if i === min
         if (min < 3) {
           if (this.rows()[min - i][i]) {
             counter++;
           }
         } else if (min > 2) {
-          if (this.rows()[(this.get('n') - 1) - i][i+ (min - 3)]) {
+          if (this.rows()[(this.get('n') - 1) - i][ i + (min - 3)]) {
             counter++;
           }
         }
+      }
       /*
       for minor < 3
         rows (min - i)
@@ -211,6 +235,26 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      var n = this.get('n');
+      if (n === 1) {
+        for (var i = 0; i < n; i++) {
+          if (this.hasMinorDiagonalConflictAt(i)) {
+            return true;
+          }
+        }
+      } else if (n === 2) {
+        for (var i = 0; i < n + 1; i++) {
+          if (this.hasMinorDiagonalConflictAt(i)) {
+            return true;
+          }
+        }
+      } else {
+        for (var i = 0; i < n + 2; i++) {
+          if (this.hasMinorDiagonalConflictAt(i)) {
+            return true;
+          }
+        }
+      }
       return false; // fixme
     }
 
